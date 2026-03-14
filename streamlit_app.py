@@ -1,35 +1,26 @@
 import streamlit as st
+from openai import OpenAI
 
-"""
-# Hello World, Streamlit!
+client = OpenAI(api_key=st.secrets["api_key"])
 
-This is a website to demonstrate Streamlit's API.
-You can stop looking at this now.
+def get_standard_response(system_prompt, user_prompt):
+    """
+    Sends a prompt to the ChatGPT API where it will return a standard response.
+    ChatGPT will not remember any prior conversations.
 
-Please.
-"""
+    Parameters:
+    - system_prompt (str): Directions on how ChatGPT should act.
+    - user_prompt (str): A prompt from the user.
 
-with st.form("my_form"):
-    fav_color = st.selectbox(
-        "What's your favorite color?",
-        [
-            "Red",
-            "Orange",
-            "Yellow",
-            "Green",
-            "Blue",
-            "Purple"
+    Returns:
+    - (str): ChatGPT's response.
+    """
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
         ]
     )
-    
-    reason = st.text_area("Talk about why that's your favorite color.")
-
-    submitted = st.form_submit_button("Submit")
-    if submitted:
-        st.write("It's interesting that you like " + fav_color + ".")
-        st.write("Your say it's because:")
-        st.write("""
-        ```
-        reason
-        ```
-        """.replace("reason", reason))
+    return response.choices[0].message.content
+st.write(get_standard_response("", "Whats's the longest English word?"))
