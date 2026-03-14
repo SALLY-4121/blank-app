@@ -23,4 +23,14 @@ def get_standard_response(system_prompt, user_prompt):
         ]
     )
     return response.choices[0].message.content
-st.write(get_standard_response("", "Whats's the longest English word?"))
+
+with st.form("Language form"):
+    out_lang = st.selectbox("What languge do you want to output?",[
+        "English", "Spanish", "Chinese", "French", "German", "Italian", "Swedish"
+    ])
+    inp = st.text_input("Put your text to be translated here!")
+
+    press = st.form_submit_button("Click me to translate your text!")
+
+    if press:
+        st.write(get_standard_response("You are a translater, the user will input text in any language. You will output it in the user's chosen output language.", "This is the language to translate to: ", out_lang, ". This is the user's inputed text: ", inp))
