@@ -33,4 +33,4 @@ with st.form("Language form"):
     press = st.form_submit_button("Click me to translate your text!")
 
     if press:
-        st.write(get_standard_response("You are a translater, the user will input text in any language. You will output it in the user's chosen output language.", "This is the language to translate to: ", out_lang, ". This is the user's inputed text: ", inp))
+        st.write(get_standard_response("You are a translater, the user will input text in any language. You will output it in the user's chosen output language.", "This is the language to translate to: " + out_lang + ". This is the user's inputed text: " + inp))
