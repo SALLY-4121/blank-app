@@ -11,7 +11,7 @@ if "chat" not in st.session_state:
 with st.form("Task form"):
     user_input = st.text_area("Paste or type the tasks you wish to generate")
 
-    press = st.form_submit_button("Click me to translate your text!")
+    press = st.form_submit_button("Click me to generate your tasks!")
 
     if press:
         st.session_state['chat'].append({'role':'user','content':user_input})
@@ -20,3 +20,4 @@ with st.form("Task form"):
     messages=st.session_state["chat"]
 )
         st.write(response.choices[0].message.content)
+        st.session_state['chat'].append({'role':'user','content':response.choices[0].message.content})
