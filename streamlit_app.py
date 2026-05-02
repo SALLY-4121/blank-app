@@ -28,7 +28,9 @@ with st.form("Task form"):
         task = json.loads(response.choices[0].message.content)
         st.session_state['task'].append(task)
         st.session_state['chat'].append({'role':'assistant','content':task})
+        
         for t in st.session_state['task']:
+            t
             st.header(t['title'])
             t['desc']
             "⭐" *t['star']
