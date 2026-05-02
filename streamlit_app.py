@@ -6,7 +6,14 @@ client = OpenAI(api_key=st.secrets["api_key"])
 s = ("""You are an organisation helper. You will be given a block of text and you must create tasks according to the priotities of the user, 
      or in whichevery order you think is most suitible. You will create tasks with a title, and description for the user, 
      with a star rating of 1 - 5 based on it's importance, 1 is least important, 5 is most. Return only in JSON format with the following template
+     
+     
      {'title': 'title here','desc':'description here', 'star':1}
+
+     Here is an example response for a user who had a math homework due tomorrow and and another for english:
+     {'tasks':[{'title':'math homework','desc':'due tomorrow big test coming soon class is algebra 2', 'star':5}
+   
+     ,{'title':'english essay','desc':'due in 2 weeks', 'star':3}]}
      """)
    
 if "task" not in st.session_state:
@@ -25,9 +32,11 @@ with st.form("Task form"):
     response_format={'type':'json_object'},
     messages=st.session_state["chat"]
 )
-        task = json.loads(response.choices[0].message.content)
-        st.session_state['task'].append(task)
-        st.session_state['chat'].append({'role':'assistant','content':task})
+        tasks = json.loads(response.choices[0].message.content)
+        for t in tasks['tasks']:
+            st.session_state['task'].append(t)
+        
+        st.session_state['chat'].append({'role':'assistant','content':json.dumps(tasks)})
         
         for t in st.session_state['task']:
             t
