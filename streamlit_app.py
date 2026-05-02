@@ -6,8 +6,7 @@ client = OpenAI(api_key=st.secrets["api_key"])
 s = ("""You are an organisation helper. You will be given a block of text and you must create tasks according to the priotities of the user, 
      or in whichevery order you think is most suitible. You will create tasks with a title, and description for the user, 
      with a star rating of 1 - 5 based on it's importance, 1 is least important, 5 is most. Return only in JSON format with the following template
-     { 'title': {'desc':'description here', 'star':1}
-     }
+     {'title': 'title here','desc':'description here', 'star':1}
      """)
    
 if "task" not in st.session_state:
@@ -30,8 +29,7 @@ with st.form("Task form"):
         st.session_state['task'].append(task)
         st.session_state['chat'].append({'role':'assistant','content':task})
         for t in st.session_state['task']:
-            st.header(st.session_state['task']['title'])
-            st.session_state['task']['desc']
-            "⭐" * st.session_state['task']['star']
+            st.header(t['title'])
+            t['desc']
+            "⭐" *t['star']
 
-            
