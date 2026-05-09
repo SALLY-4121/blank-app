@@ -46,7 +46,7 @@ for t in st.session_state['task']:
     if button1:
         st.session_state['task'].remove(t)
         st.rerun()
-    text_input = st.text_input("New description here")
+    text_input = st.text_input(f'new desc for {t["title"]}')
     button2 = st.button(f'change {t["desc"]}')
     if button2:
         t['desc'] = text_input 
