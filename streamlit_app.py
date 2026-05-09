@@ -39,8 +39,16 @@ with st.form("Task form"):
         st.session_state['chat'].append({'role':'assistant','content':json.dumps(tasks)})
         
         for t in st.session_state['task']:
-            t
             st.header(t['title'])
             t['desc']
             "⭐" *t['star']
+            button1 = st.button('remove this task')
+            if button1:
+                st.session_state['task'].remove(t)
+            text_input = st.text_input("New description here")
+            button2 = st.button('Change the description')
+            if button2:
+                t['desc'] = text_input
+
+
 
