@@ -42,9 +42,10 @@ for t in st.session_state['task']:
     st.header(t['title'])
     t['desc']
     "⭐" *t['star']
-    button1 = st.button('remove this task')
+    button1 = st.button(f'remove {t["title"]}')
     if button1:
         st.session_state['task'].remove(t)
+        st.rerun()
     text_input = st.text_input("New description here")
     button2 = st.button('Change the description')
     if button2:
