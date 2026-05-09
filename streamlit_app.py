@@ -50,7 +50,7 @@ for t in st.session_state['task']:
     button2 = st.button(f'change {t["desc"]}')
     if button2:
         t['desc'] = text_input 
-        "description save"
+        st.rerun()
 
 
 
